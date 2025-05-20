@@ -1,1 +1,227 @@
-<title>SFMDemo</title>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="asset/ditto.ico" />
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,700"
+    rel="stylesheet"
+    type="text/css"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+
+    <title>SFM</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="js/main.js" defer></script>
+  </head>
+
+  <body data-new-gr-c-s-check-loaded="14.1091.0" data-gr-ext-installed="">
+    <div class="container">
+      <header role="banner"></header>
+      <main role="main">
+        <article itemscope="" itemtype="https://schema.org/BlogPosting">
+          <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+            <div class="text-center">
+              <h2>
+                <span style="font-weight: 760">Shallow Flow Matching for Coarse-to-Fine Text-to-Speech Synthesis</span>
+              </h2>
+              <div class="affiliation">
+                <span><a target="_blank" href="https://ydqmkkx.github.io/">Dong Yang</a><sup>1</sup></span>,
+                <span>Yiyi Cai<sup>2</sup></span>,
+                <span>Yuki Saito<sup>1</sup></span>,
+                <span>Lixu Wang<sup>3</sup></span>,
+                <span>Hiroshi Saruwatari<sup>1</sup></span>
+                <br>
+                <span><sup>1</sup><a>The University of Tokyo</a>, 
+                   <sup>2</sup><a>Independent Researcher</a>,
+                   <sup>3</sup><a>Nanyang Technological University</a>
+              </div>
+              <p style="margin-top: 10;" class="links">
+                <a target="_blank" href="https://arxiv.org/abs/2505.12226"><span class="icon"><i class="ai ai-arxiv"></i></span> <span>arXiv</span></a>
+              </p>
+            </div>
+            <p>
+              <b>Abstract.</b>
+              We propose a shallow flow matching (SFM) mechanism to enhance flow matching (FM)-based text-to-speech (TTS) models within a coarse-to-fine generation paradigm. SFM constructs intermediate states along the FM paths using coarse output representations. During training, we introduce an orthogonal projection method to adaptively determine the temporal position of these states, and apply a principled construction strategy based on a single-segment piecewise flow. The SFM inference starts from the intermediate state rather than pure noise and focuses computation on the latter stages of the FM paths. We integrate SFM into multiple TTS models with a lightweight SFM head. Experiments show that SFM consistently improves the naturalness of synthesized speech in both objective and subjective evaluations, while significantly accelerating inference when using adaptive-step ODE solvers.
+            </p>
+          </div>
+
+          <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+            <h4 id="model-overview" style="text-align: center">
+              An example of inference process
+            </h4>
+
+            <!-- <div style="text-align: center;">
+              <embed src="asset/sfm.pdf" width="1000" height="150" type="application/pdf" />
+            </div> -->
+            <p style="text-align: center">
+              <img src="asset/sfm.png" height="200" width="1200"
+                class="img-fluid" />
+            </p>
+            <p style="text-align: center;">
+              Left: standard flow matching. Right: shallow flow matching. (The notation of this figure is strictly aligned with Section 3.2.3)
+            </p>
+          </div>
+
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <!-- active表示展示为首页 -->
+              <button
+                class="nav-link active"
+                data-bs-toggle="tab"
+                data-bs-target="#matcha-ljspeech-box"
+                type="button"
+                role="tab"
+              >
+                Matcha-TTS (LJ Speech)
+              </button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#matcha-vctk-box"
+                type="button"
+                role="tab"
+              >
+                Matcha-TTS (VCTK)
+              </button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#stable-vctk-box"
+                type="button"
+                role="tab"
+              >
+                StableTTS (VCTK)
+              </button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#cosyvoice-libritts-box"
+                type="button"
+                role="tab"
+              >
+                CosyVoice (LibriTTS)
+              </button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#stable-libritts-box"
+                type="button"
+                role="tab"
+              >
+                CosyVoice-DiT (LibriTTS)
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="myTabContent">
+            <div
+              id="matcha-ljspeech-box"
+              role="tabpanel"
+              class="tab-pane fade show active container pt-5 shadow p-5 mb-5 bg-white rounded"
+            >
+              <h2 id="matcha-ljspeech" style="text-align: center">
+                Matcha-TTS trained on LJ Speech
+              </h2>
+            </div>
+
+            <div
+              id="matcha-vctk-box"
+              role="tabpanel"
+              class="tab-pane fade container pt-5 shadow p-5 mb-5 bg-white rounded"
+            >
+              <h2 id="matcha-vctk" style="text-align: center">
+                Matcha-TTS trained on VCTK
+              </h2>
+            </div>
+
+            <div
+              id="stable-vctk-box"
+              role="tabpanel"
+              class="tab-pane fade container pt-5 shadow p-5 mb-5 bg-white rounded"
+            >
+              <h2 id="stable-vctk" style="text-align: center">
+                StableTTS trained on VCTK
+              </h2>
+            </div>
+            
+            <div
+              id="cosyvoice-libritts-box"
+              role="tabpanel"
+              class="tab-pane fade container pt-5 shadow p-5 mb-5 bg-white rounded"
+            >
+              <h2 id="cosyvoice-libritts" style="text-align: center">
+                CosyVoice trained on LibriTTS
+              </h2>
+            </div>
+
+            <div
+              id="stable-libritts-box"
+              role="tabpanel"
+              class="tab-pane fade container pt-5 shadow p-5 mb-5 bg-white rounded"
+            >
+              <h2 id="stable-libritts" style="text-align: center">
+                CosyVoice-DiT trained on LibriTTS
+              </h2>
+            </div>
+
+
+    <template id="prompt-template">
+      <div class="card card-body ditto-card">
+        <div>
+          <p class="ditto-prompt-text"><strong>Prompt Text</strong>: <span></span></p>
+          <p class="ditto-text"><strong>Text</strong>: <span></span></p>
+        </div>
+        <div class="collapse multi-collapse ditto-sample-box">
+          <div class="table-responsive pt-3">
+            <table class="table dynamically-generated-table-1">
+              <thead>
+                </thead>
+              <tbody>
+                </tbody>
+            </table>
+
+            <table class="table dynamically-generated-table-2" style="margin-top: 1rem;"> <thead>
+                </thead>
+              <tbody>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </template>
+    <div id="fab" class="fab">
+      <a class="mainop" href="#myTab">
+        <i class="bi bi-arrow-bar-up"></i>
+      </a>
+    </div>
+  </body>
+</html>
+
+<p>This page is modified from <a href="https://github.com/ditto-tts/ditto-tts.github.io">https://github.com/ditto-tts/ditto-tts.github.io</a>.</p>
