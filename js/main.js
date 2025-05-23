@@ -922,3 +922,11 @@ divBuilderMatchaVCTK("#matcha-vctk-box", MatchaVCTKData);
 divBuilderStableVCTK("#stable-vctk-box", StableVCTKData);
 divBuilderCosyVoiceLibriTTS("#cosyvoice-libritts-box", CosyVoiceLibriTTSData);
 divBuilderStableLibriTTS("#stable-libritts-box", StableLibriTTSData);
+
+addEventListener("scroll", (event) => {
+  if (document.querySelector("#myTab").offsetTop < window.scrollY) {
+    document.querySelector("#fab").classList.add("show");
+  } else {
+    document.querySelector("#fab").classList.remove("show");
+  }
+});
