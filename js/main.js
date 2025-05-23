@@ -917,43 +917,8 @@ const StableLibriTTSData = {
 };
 
 
-
-document
-  .querySelector(
-    'button[data-bs-toggle="tab"][data-bs-target="#matcha-ljspeech-box"]',
-  )
-  .addEventListener("shown.bs.tab", function (event) {
-    divBuilderMatchaLJSpeech("#matcha-ljspeech-box", MatchaLJSpeechData);
-  });
-document
-  .querySelector('button[data-bs-toggle="tab"][data-bs-target="#matcha-vctk-box"]')
-  .addEventListener("shown.bs.tab", function (event) {
-      divBuilderMatchaVCTK("#matcha-vctk-box", MatchaVCTKData);
-  });
-document
-  .querySelector('button[data-bs-toggle="tab"][data-bs-target="#stable-vctk-box"]')
-  .addEventListener("shown.bs.tab", function (event) {
-      divBuilderStableVCTK("#stable-vctk-box", StableVCTKData);
-  });
-document
-  .querySelector('button[data-bs-toggle="tab"][data-bs-target="#cosyvoice-libritts-box"]')
-  .addEventListener("shown.bs.tab", function (event) {
-      divBuilderCosyVoiceLibriTTS("#cosyvoice-libritts-box", CosyVoiceLibriTTSData);
-  });
-document
-  .querySelector('button[data-bs-toggle="tab"][data-bs-target="#stable-libritts-box"]')
-  .addEventListener("shown.bs.tab", function (event) {
-      divBuilderStableLibriTTS("#stable-libritts-box", StableLibriTTSData);
-  });
-
-
-addEventListener("scroll", (event) => {
-  if (document.querySelector("#myTab").offsetTop < window.scrollY) {
-    document.querySelector("#fab").classList.add("show");
-  } else {
-    document.querySelector("#fab").classList.remove("show");
-  }
-});
-
-// 由于底下的框是要点击一下才展开，这里添加一个点击操作
 divBuilderMatchaLJSpeech("#matcha-ljspeech-box", MatchaLJSpeechData);
+divBuilderMatchaVCTK("#matcha-vctk-box", MatchaVCTKData);
+divBuilderStableVCTK("#stable-vctk-box", StableVCTKData);
+divBuilderCosyVoiceLibriTTS("#cosyvoice-libritts-box", CosyVoiceLibriTTSData);
+divBuilderStableLibriTTS("#stable-libritts-box", StableLibriTTSData);
